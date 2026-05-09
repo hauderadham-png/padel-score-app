@@ -1,75 +1,73 @@
 import streamlit as st
+import pandas as pd
+import time
+
+# 1. El lien mte3ek mrigel houni
+sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZw9lGlEStl8TfH3yhLPyTjK_fBWKEa4wG0gLfONdas2PEEqtn36isJwCHggLWR6lO4jh97kMUNunP/pub?output=csv"
+
+st.set_page_config(page_title="Padel Live Score", layout="wide")
+
+# --- STYLE CSS (Bech yabda Pro fil TV) ---
 st.markdown("""
     <style>
-    /* Baddel el loun mta3 el background */
-    .stApp {
-        background-color: #0e1117;
-    }
-    
-    /* Kabbel el khat mta3 el score */
-    .big-font {
-        font-size:80px !important;
-        font-weight: bold;
-        color: #00FF00; /* Loun akhdar flashy kima mta3 el padel */
-        text-align: center;
-    }
-
-    /* Style mta3 el cards mta3 el matches */
-    .match-card {
+    .stApp { background-color: #0e1117; }
+    .main-title { color: #00FF00; text-align: center; font-size: 60px; font-weight: bold; margin-bottom: 30px; }
+    .match-container {
         background-color: #1f2937;
-        padding: 20px;
-        border-radius: 15px;
-        border: 2px solid #374151;
-        margin-bottom: 20px;
+        padding: 40px;
+        border-radius: 25px;
+        border: 3px solid #00FF00;
         text-align: center;
+        margin-bottom: 25px;
+        box-shadow: 0px 0px 20px rgba(0, 255, 0, 0.2);
     }
+    .team-text { color: white; font-size: 45px; font-weight: bold; }
+    .score-text { color: #00FF00; font-size: 110px; font-family: 'Courier New', Courier, monospace; font-weight: bold; }
+    .terrain-label { color: #aaaaaa; font-size: 25px; text-transform: uppercase; letter-spacing: 2px; }
     </style>
     """, unsafe_allow_html=True)
 
-# Taw nasta3mlou el style fil lesta mte3ek
-st.markdown('<p class="big-font">Padel Scoreboard 🎾</p>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">LIVE PADEL SCOREBOARD 🎾</div>', unsafe_allow_html=True)
 
-# 1. El data mta3 el rounds mel image PHOTO-2026-05-08-23-13-48.jpg
-rounds = {
-    "Round 1": {"T1": ("Tarek - Adam", "Stéphane - Anissa"), "T2": ("Oussama - Ahmed", "Eric - Valérie")},
-    "Round 2": {"T1": ("Achref - Samy", "Mouhamed Hedi - Ouassim"), "T2": ("Jihed - Alexis", "Marwene - Anis")},"Round 3": {"T1": ("Tarek - Adam", "Eric - Valérie"), "T2": ("Stéphane - Anissa", "Mouhamed Hedi - Ouassim")},
-    "Round 4": {"T1": ("Oussama - Ahmed", "Marwene - Anis"), "T2": ("Achref - Samy", "Jihed - Alexis")},
-    "Round 5": {"T1": ("Tarek - Adam", "Mouhamed Hedi - Ouassim"), "T2": ("Eric - Valérie", "Marwene - Anis")},
-    "Round 6": {"T1": ("Stéphane - Anissa", "Jihed - Alexis"), "T2": ("Oussama - Ahmed", "Achref - Samy")},
-    "Round 7": {"T1": ("Tarek - Adam", "Marwene - Anis"), "T2": ("Mouhamed Hedi - Ouassim", "Jihed - Alexis")},
-    "Round 8": {"T1": ("Eric - Valérie", "Achref - Samy"), "T2": ("Stéphane - Anissa", "Oussama - Ahmed")},
-    "Round 9": {"T1": ("Tarek - Adam", "Jihed - Alexis"), "T2": ("Marwene - Anis", "Achref - Samy")},
-    "Round 10": {"T1": ("Mouhamed Hedi - Ouassim", "Oussama - Ahmed"), "T2": ("Eric - Valérie", "Stéphane - Anissa")},
-    "Round 11": {"T1": ("Tarek - Adam", "Achref - Samy"), "T2": ("Jihed - Alexis", "Oussama - Ahmed")},
-    "Round 12": {"T1": ("Marwene - Anis", "Stéphane - Samy"), "T2": ("Mouhamed Hedi - Ouassim", "Eric - Valérie")},
-    "Round 13": {"T1": ("Tarek - Adam", "Oussama - Ahmed"), "T2": ("Achref - Samy", "Stéphane - Anissa")},
-    "Round 14": {"T1": ("Jihed - Alexis", "Eric - Valérie"), "T2": ("Marwene - Anis", "Mouhamed Hedi - Ouassim")}
-} # Zid el rounds lokhrin houni baad
+def load_data():
+    # El trick hedhi tkhalli l'app dima tjib jdid mel Google Sheet
+    return pd.read_csv(f"{sheet_url}&cache_buster={time.time()}")
 
-st.title("Padel Scoreboard 🎾")
+# 2. Ekhtar el Mode (TV Terrain 1 walla 2)
+mode = st.sidebar.radio("Chnwa t7eb t'7el?", ["Admin", "TV Terrain 1", "TV Terrain 2"])
 
-# 2. Ekhtar el Mode
-mode = st.sidebar.radio("Chnwa t7eb t'7el?", ["Admin (Tlfoun)", "TV Terrain 1", "TV Terrain 2"])
-
-# 3. Logic mta3 el Admin
-if mode == "Admin (Tlfoun)":
-    st.subheader("T9ayed el score houni")
-    rd = st.selectbox("Ekhtar el Round", list(rounds.keys()))
-    tr = st.radio("Ekhtar el Terrain", ["T1", "T2"])
+try:
+    df = load_data()
     
-    t1, t2 = rounds[rd][tr]
-    st.info(f"Match: {t1} VS {t2}")
-    
-    score1 = st.number_input(f"Score {t1}", 0, 10)
-    score2 = st.number_input(f"Score {t2}", 0, 10)
-    
-    if st.button("Abat el Score lel TV"):
-        st.session_state[f"score_{tr}"] = f"{score1} - {score2}"
-        st.success("Tbaat!")
+    if mode == "Admin":
+        st.subheader("Admin View")
+        st.write("Matchs en direct mel Google Sheet:")
+        st.dataframe(df)
+        st.info("Badel el scores mel app Google Sheets f'tlfounik, el TV taamel update wa7d'ha!")
 
-# 4. Logic mta3 el TV
-else:
-    tr_id = "T1" if "1" in mode else "T2"
-    st.header(f"Terrain {tr_id}")
-    live_score = st.session_state.get(f"score_{tr_id}", "0 - 0")
-    st.markdown(f"<h1 style='text-align: center; font-size: 150px;'>{live_score}</h1>", unsafe_allow_html=True)
+    else:
+        # Nekhdou el Terrain ID (T1 walla T2) mel klem elli ekhtartou
+        tr_id = "T1" if "1" in mode else "T2"
+        
+        # Filtre el matches mta3 el terrain hedha barka
+        # NOTE: Lezem 3andek column esmou 'Terrain' fil Google Sheet fih T1 walla T2
+        match_data = df[df['Terrain'] == tr_id]
+        
+        if not match_data.empty:
+            for _, row in match_data.iterrows():
+                st.markdown(f"""
+                    <div class="match-container">
+                        <div class="terrain-label">Terrain {tr_id}</div>
+                        <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
+                        <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
+                    </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.warning(f"Mafama 7atta match tawa fil Terrain {tr_id}")
+
+except Exception as e:
+    st.error(f"Fama mochkla f'el data: {e}")
+
+# 3. Auto-refresh kol 5 thwani
+time.sleep(5)
+st.rerun()
