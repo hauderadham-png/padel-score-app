@@ -47,36 +47,3 @@ except Exception as e:
 # 5. Refresh (Lezem ikoun fi star wa7dou f'ekher el koud)
 time.sleep(3)
 st.rerun()
-row = df.iloc[0]
-        st.markdown(f"""
-            <div class="match-container">
-                <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
-                <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
-            </div>
-        """, unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Erreur: {e}")
-
-# 5. Refresh (Lezem koun fi star wa7dou f'ekher el koud)
-time.sleep(3)
-st.rerun()    st.markdown(f"""
-        <div class="match-container">
-            <div class="team-text">{match['Team 1']} vs {match['Team 2']}</div>
-            <div class="score-text">{match['Score 1']} - {match['Score 2']}</div>
-        </div>
-    """, unsafe_allow_html=True)
-except Exception as e:
-    st.error("Yasta3na chwaya Google Sheet ya3mel update...")
-
-# Refresh kol 3 thwani
-time.sleep(3)
-st.rerun()                <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
-                <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
-            </div>
-        """, unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Fama mochkla: {e}")
-
-# Refresh kol 5 thwani
-time.sleep(10)
-st.rerun()
