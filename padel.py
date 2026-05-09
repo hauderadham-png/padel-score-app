@@ -42,5 +42,5 @@ except Exception as e:
     st.error(f"Fama mochkla: {e}")
 
 # Refresh kol 5 thwani
-time.sleep(1)
+time.sleep(10)
 st.rerun()
