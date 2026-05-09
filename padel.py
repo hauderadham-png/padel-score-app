@@ -2,48 +2,50 @@ import streamlit as st
 import pandas as pd
 import time
 
-# 1. Configuration
-st.set_page_config(page_title="Padel Live Score", layout="wide")
+# 1. Configuration el Page
+st.set_page_config(page_title="Padel Score Live", layout="wide")
 
 # 2. El link mte3ek (CSV)
 sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZw9lGlEStl8TfH3yhLPyTjK_fBWKEa4wG0gLfONdas2PEEqtn36isJwCHggLWR6lO4jh97kMUNunP/pub?output=csv"
 
-# 3. CSS Style
+# 3. Style CSS (Nadhamna el Score kbir lel TV)
 st.markdown("""
     <style>
     .stApp { background-color: #0e1117; }
     .match-container {
         background-color: #1f2937;
-        padding: 50px;
-        border-radius: 30px;
-        border: 5px solid #00FF00;
+        padding: 30px;
+        border-radius: 20px;
+        border-left: 10px solid #00FF00;
         text-align: center;
-        margin-top: 40px;
+        margin-bottom: 25px;
     }
-    .team-text { color: white; font-size: 65px; font-weight: bold; }
-    .score-text { color: #00FF00; font-size: 160px; font-weight: bold; font-family: monospace; }
+    .terrain-label { color: #00FF00; font-size: 30px; font-weight: bold; }
+    .team-text { color: white; font-size: 50px; font-weight: bold; }
+    .score-text { color: #00FF00; font-size: 110px; font-weight: bold; font-family: monospace; }
     </style>
     """, unsafe_allow_html=True)
 
 def load_data():
-    # Cache buster bech dima y'jiblek a7deth score
+    # Force Google update b'el timestamp
     return pd.read_csv(f"{sheet_url}&t={time.time()}")
 
-# 4. Display Match
+# 4. Display
 try:
     df = load_data()
     if not df.empty:
-        # N'warriw el match el awel (Tarek vs anissa)
-        row = df.iloc[0]
-        st.markdown(f"""
-            <div class="match-container">
-                <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
-                <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
-            </div>
-        """, unsafe_allow_html=True)
+        # Houni l'app t'lawej 3al matches el kol w t'fara9hom
+        for index, row in df.iterrows():
+            st.markdown(f"""
+                <div class="match-container">
+                    <div class="terrain-label">Terrain: {row['Terrain']}</div>
+                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
+                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
+                </div>
+            """, unsafe_allow_html=True)
 except Exception as e:
-    st.error(f"Erreur: {e}")
+    st.error("Google Sheet ba9i ya3mel fi update...")
 
-# 5. Refresh (Lezem ikoun fi star wa7dou f'ekher el koud)
-time.sleep(3)
+# 5. Refresh kol 5 thwani (F'star wa7dou bech maadech ya3mel SyntaxError)
+time.sleep(5)
 st.rerun()
