@@ -1,15 +1,15 @@
 import streamlit as st
 import pandas as pd
 import time
-import datetime
 
-# 1. El link b'tariqa jdida bech maadech yarja3 el score el 9dim
+# 1. Config el Page
+st.set_page_config(page_title="Padel Live Score", layout="wide")
+
+# 2. El link el s7i7 (Export mode bech maadech yabta)
 sheet_id = "1SZw9lGlEStl8TfH3yhLPyTjK_fBWKEa4wG0gLfONdas2PEEqtn36isJwCHggLWR6lO4jh97kMUNunP"
 sheet_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
 
-st.set_page_config(page_title="Padel Live Score", layout="wide")
-
-# --- STYLE CSS ---
+# 3. Style CSS
 st.markdown("""
     <style>
     .stApp { background-color: #0e1117; }
@@ -26,12 +26,12 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+# 4. Function ta9ra el data
 def load_data():
-    # Force Google Sheet update
     t = int(time.time())
     return pd.read_csv(f"{sheet_url}&cachebuster={t}")
 
-# --- DISPLAY ---
+# 5. Affichage
 try:
     df = load_data()
     if not df.empty:
@@ -43,78 +43,8 @@ try:
                 </div>
             """, unsafe_allow_html=True)
 except Exception as e:
-    st.error(f"Erreur: {e}")
+    st.error(f"Fama mochkla: {e}")
 
-# Refresh kol 3 thwani (lezem koun fi star wa7dou f'ekher el koud)
+# 6. Refresh kol 3 thwani (MARRA WA7DA FI EKHER EL FICHIÉ)
 time.sleep(3)
-st.rerun()
-if not df.empty:
-        for index, row in df.iterrows():
-            st.markdown(f"""
-                <div class="match-container">
-                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
-                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
-                </div>
-            """, unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Erreur: {e}")
-
-# Refresh kol 3 thwani (lezem koun fi star wa7dou f'ekher el koud)
-time.sleep(3)
-st.rerun()   
- if not df.empty:
-        for index, row in df.iterrows():
-            st.markdown(f"""
-                <div class="match-container">
-                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
-                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
-                </div>
-            """, unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Erreur: {e}")
-
-# Refresh kol 3 thwani (f'star wa7d'ha bech maadech ya3mel SyntaxError)
-time.sleep(3)
-st.rerun()   
- if not df.empty:
-        for index, row in df.iterrows():
-            st.markdown(f"""
-                <div class="match-container">
-                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
-                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
-                </div>
-            """, unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Erreur: {e}")
-
-# Refresh kol 3 thwani barka bech dima y'tol 3al Sheet
-time.sleep(3)
-st.rerun()
-df = load_data()
-    if not df.empty:
-        for index, row in df.iterrows():
-            st.markdown(f"""
-                <div class="match-container">
-                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
-                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
-                </div>
-            """, unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Erreur: {e}")
-
-# Refresh kol 3 thwani barka
-time.sleep(3)
-st.rerun() 
-for index, row in df.iterrows():
-            st.markdown(f"""
-                <div class="match-container">
-                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
-                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
-                </div>
-            """, unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Erreur: {e}")
-
-# Refresh kol 5 thwani
-time.sleep(5)
 st.rerun()
