@@ -47,7 +47,8 @@ except Exception as e:
 
 # Refresh kol 3 thwani (lezem koun fi star wa7dou f'ekher el koud)
 time.sleep(3)
-st.rerun()    if not df.empty:
+st.rerun()   
+ if not df.empty:
         for index, row in df.iterrows():
             st.markdown(f"""
                 <div class="match-container">
@@ -60,7 +61,8 @@ except Exception as e:
 
 # Refresh kol 3 thwani (f'star wa7d'ha bech maadech ya3mel SyntaxError)
 time.sleep(3)
-st.rerun()    if not df.empty:
+st.rerun()   
+ if not df.empty:
         for index, row in df.iterrows():
             st.markdown(f"""
                 <div class="match-container">
