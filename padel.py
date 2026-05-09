@@ -46,7 +46,8 @@ except Exception as e:
 
 # 5. Refresh (Lezem ikoun fi star wa7dou f'ekher el koud)
 time.sleep(3)
-st.rerun()        row = df.iloc[0]
+st.rerun()
+row = df.iloc[0]
         st.markdown(f"""
             <div class="match-container">
                 <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
