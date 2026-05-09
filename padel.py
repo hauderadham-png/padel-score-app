@@ -3,7 +3,7 @@ import pandas as pd
 import time
 import datetime
 
-# 1. El link el s7i7 bech maadech yarja3 el score el 9dim
+# 1. El link b'tariqa jdida bech maadech yarja3 el score el 9dim
 sheet_id = "1SZw9lGlEStl8TfH3yhLPyTjK_fBWKEa4wG0gLfONdas2PEEqtn36isJwCHggLWR6lO4jh97kMUNunP"
 sheet_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
 
@@ -27,7 +27,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 def load_data():
-    # Cache buster b'el sanya bech dima y'jib a7deth score mel Google Sheet
+    # Force Google Sheet update
     t = int(time.time())
     return pd.read_csv(f"{sheet_url}&cachebuster={t}")
 
@@ -35,6 +35,19 @@ def load_data():
 try:
     df = load_data()
     if not df.empty:
+        for index, row in df.iterrows():
+            st.markdown(f"""
+                <div class="match-container">
+                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
+                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
+                </div>
+            """, unsafe_allow_html=True)
+except Exception as e:
+    st.error(f"Erreur: {e}")
+
+# Refresh kol 3 thwani (lezem koun fi star wa7dou f'ekher el koud)
+time.sleep(3)
+st.rerun()    if not df.empty:
         for index, row in df.iterrows():
             st.markdown(f"""
                 <div class="match-container">
