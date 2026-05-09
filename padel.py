@@ -1,4 +1,33 @@
 import streamlit as st
+st.markdown("""
+    <style>
+    /* Baddel el loun mta3 el background */
+    .stApp {
+        background-color: #0e1117;
+    }
+    
+    /* Kabbel el khat mta3 el score */
+    .big-font {
+        font-size:80px !important;
+        font-weight: bold;
+        color: #00FF00; /* Loun akhdar flashy kima mta3 el padel */
+        text-align: center;
+    }
+
+    /* Style mta3 el cards mta3 el matches */
+    .match-card {
+        background-color: #1f2937;
+        padding: 20px;
+        border-radius: 15px;
+        border: 2px solid #374151;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# Taw nasta3mlou el style fil lesta mte3ek
+st.markdown('<p class="big-font">Padel Scoreboard 🎾</p>', unsafe_allow_html=True)
 
 # 1. El data mta3 el rounds mel image PHOTO-2026-05-08-23-13-48.jpg
 rounds = {
