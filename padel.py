@@ -1,15 +1,14 @@
 import streamlit as st
 import pandas as pd
 import time
+import datetime
 
-# 1. Config el Page
+# 1. El link el s7i7 (Raja3nah kima kén bech na7iw el 404)
+sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZw9lGlEStl8TfH3yhLPyTjK_fBWKEa4wG0gLfONdas2PEEqtn36isJwCHggLWR6lO4jh97kMUNunP/pub?output=csv"
+
 st.set_page_config(page_title="Padel Live Score", layout="wide")
 
-# 2. El link el s7i7 (Export mode bech maadech yabta)
-sheet_id = "1SZw9lGlEStl8TfH3yhLPyTjK_fBWKEa4wG0gLfONdas2PEEqtn36isJwCHggLWR6lO4jh97kMUNunP"
-sheet_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
-
-# 3. Style CSS
+# STYLE CSS
 st.markdown("""
     <style>
     .stApp { background-color: #0e1117; }
@@ -26,15 +25,28 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# 4. Function ta9ra el data
 def load_data():
+    # Cache buster bech dima y'jib el jdid
     t = int(time.time())
-    return pd.read_csv(f"{sheet_url}&cachebuster={t}")
+    return pd.read_csv(f"{sheet_url}&cache={t}")
 
-# 5. Affichage
+# Logic Display
 try:
     df = load_data()
     if not df.empty:
+        for index, row in df.iterrows():
+            st.markdown(f"""
+                <div class="match-container">
+                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
+                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
+                </div>
+            """, unsafe_allow_html=True)
+except Exception as e:
+    st.error(f"Fama mochkla: {e}")
+
+# Refresh kol 5 thwani
+time.sleep(5)
+st.rerun()    if not df.empty:
         for index, row in df.iterrows():
             st.markdown(f"""
                 <div class="match-container">
