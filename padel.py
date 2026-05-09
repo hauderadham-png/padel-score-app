@@ -3,7 +3,18 @@ import streamlit as st
 # 1. El data mta3 el rounds mel image PHOTO-2026-05-08-23-13-48.jpg
 rounds = {
     "Round 1": {"T1": ("Tarek - Adam", "Stéphane - Anissa"), "T2": ("Oussama - Ahmed", "Eric - Valérie")},
-    "Round 2": {"T1": ("Achref - Samy", "Mouhamed Hedi - Ouassim"), "T2": ("Jihed - Alexis", "Marwene - Anis")},
+    "Round 2": {"T1": ("Achref - Samy", "Mouhamed Hedi - Ouassim"), "T2": ("Jihed - Alexis", "Marwene - Anis")},"Round 3": {"T1": ("Tarek - Adam", "Eric - Valérie"), "T2": ("Stéphane - Anissa", "Mouhamed Hedi - Ouassim")},
+    "Round 4": {"T1": ("Oussama - Ahmed", "Marwene - Anis"), "T2": ("Achref - Samy", "Jihed - Alexis")},
+    "Round 5": {"T1": ("Tarek - Adam", "Mouhamed Hedi - Ouassim"), "T2": ("Eric - Valérie", "Marwene - Anis")},
+    "Round 6": {"T1": ("Stéphane - Anissa", "Jihed - Alexis"), "T2": ("Oussama - Ahmed", "Achref - Samy")},
+    "Round 7": {"T1": ("Tarek - Adam", "Marwene - Anis"), "T2": ("Mouhamed Hedi - Ouassim", "Jihed - Alexis")},
+    "Round 8": {"T1": ("Eric - Valérie", "Achref - Samy"), "T2": ("Stéphane - Anissa", "Oussama - Ahmed")},
+    "Round 9": {"T1": ("Tarek - Adam", "Jihed - Alexis"), "T2": ("Marwene - Anis", "Achref - Samy")},
+    "Round 10": {"T1": ("Mouhamed Hedi - Ouassim", "Oussama - Ahmed"), "T2": ("Eric - Valérie", "Stéphane - Anissa")},
+    "Round 11": {"T1": ("Tarek - Adam", "Achref - Samy"), "T2": ("Jihed - Alexis", "Oussama - Ahmed")},
+    "Round 12": {"T1": ("Marwene - Anis", "Stéphane - Samy"), "T2": ("Mouhamed Hedi - Ouassim", "Eric - Valérie")},
+    "Round 13": {"T1": ("Tarek - Adam", "Oussama - Ahmed"), "T2": ("Achref - Samy", "Stéphane - Anissa")},
+    "Round 14": {"T1": ("Jihed - Alexis", "Eric - Valérie"), "T2": ("Marwene - Anis", "Mouhamed Hedi - Ouassim")}
 } # Zid el rounds lokhrin houni baad
 
 st.title("Padel Scoreboard 🎾")
