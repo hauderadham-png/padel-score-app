@@ -2,39 +2,51 @@ import streamlit as st
 import pandas as pd
 import time
 
-# Config el page bech el score yetla3 kbir
-st.set_page_config(page_title="Padel Score Live", layout="wide")
+# 1. Config el Page
+st.set_page_config(page_title="Padel Live Score", layout="wide")
 
-# El link el s7i7 mta3 el CSV
+# 2. El link el s7i7 (CSV mode)
 sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZw9lGlEStl8TfH3yhLPyTjK_fBWKEa4wG0gLfONdas2PEEqtn36isJwCHggLWR6lO4jh97kMUNunP/pub?output=csv"
 
-# Style CSS bech tatla3 mrigla fil TV
+# 3. Style CSS
 st.markdown("""
     <style>
     .stApp { background-color: #0e1117; }
     .match-container {
         background-color: #1f2937;
-        padding: 60px;
-        border-radius: 40px;
-        border: 6px solid #00FF00;
+        padding: 50px;
+        border-radius: 30px;
+        border: 5px solid #00FF00;
         text-align: center;
-        margin-top: 50px;
+        margin-top: 40px;
     }
-    .team-text { color: white; font-size: 80px; font-weight: bold; }
-    .score-text { color: #00FF00; font-size: 200px; font-weight: bold; font-family: monospace; }
+    .team-text { color: white; font-size: 65px; font-weight: bold; }
+    .score-text { color: #00FF00; font-size: 160px; font-weight: bold; font-family: monospace; }
     </style>
     """, unsafe_allow_html=True)
 
 def load_data():
-    # Cache buster bech Google ma i'khabich el score el kdim
+    # Cache buster bech dima y'jib a7deth score
     return pd.read_csv(f"{sheet_url}&t={time.time()}")
 
+# 4. Display Match
 try:
     df = load_data()
-    # N'warriw kan el match mta3 Terrain T1 (kima fil Sheet row 2)
-    match = df[df['Terrain'] == 'T1'].iloc[0]
-    
-    st.markdown(f"""
+    if not df.empty:
+        # N'warriw match we7ed barka mrigel
+        row = df.iloc[0]
+        st.markdown(f"""
+            <div class="match-container">
+                <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
+                <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
+            </div>
+        """, unsafe_allow_html=True)
+except Exception as e:
+    st.error(f"Erreur: {e}")
+
+# 5. Refresh (Lezem koun fi star wa7dou f'ekher el koud)
+time.sleep(3)
+st.rerun()    st.markdown(f"""
         <div class="match-container">
             <div class="team-text">{match['Team 1']} vs {match['Team 2']}</div>
             <div class="score-text">{match['Score 1']} - {match['Score 2']}</div>
