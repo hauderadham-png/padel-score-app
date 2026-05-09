@@ -47,6 +47,20 @@ except Exception as e:
 
 # Refresh kol 3 thwani (lezem koun fi star wa7dou f'ekher el koud)
 time.sleep(3)
+st.rerun()
+if not df.empty:
+        for index, row in df.iterrows():
+            st.markdown(f"""
+                <div class="match-container">
+                    <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
+                    <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
+                </div>
+            """, unsafe_allow_html=True)
+except Exception as e:
+    st.error(f"Erreur: {e}")
+
+# Refresh kol 3 thwani (lezem koun fi star wa7dou f'ekher el koud)
+time.sleep(3)
 st.rerun()   
  if not df.empty:
         for index, row in df.iterrows():
@@ -75,7 +89,8 @@ except Exception as e:
 
 # Refresh kol 3 thwani barka bech dima y'tol 3al Sheet
 time.sleep(3)
-st.rerun()    df = load_data()
+st.rerun()
+df = load_data()
     if not df.empty:
         for index, row in df.iterrows():
             st.markdown(f"""
@@ -89,7 +104,8 @@ except Exception as e:
 
 # Refresh kol 3 thwani barka
 time.sleep(3)
-st.rerun()        for index, row in df.iterrows():
+st.rerun() 
+for index, row in df.iterrows():
             st.markdown(f"""
                 <div class="match-container">
                     <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
