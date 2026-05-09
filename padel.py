@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 import time
 
-# 1. Config el Page
+# 1. Configuration
 st.set_page_config(page_title="Padel Live Score", layout="wide")
 
-# 2. El link el s7i7 (CSV mode)
+# 2. El link mte3ek (CSV)
 sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZw9lGlEStl8TfH3yhLPyTjK_fBWKEa4wG0gLfONdas2PEEqtn36isJwCHggLWR6lO4jh97kMUNunP/pub?output=csv"
 
-# 3. Style CSS
+# 3. CSS Style
 st.markdown("""
     <style>
     .stApp { background-color: #0e1117; }
@@ -26,15 +26,27 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 def load_data():
-    # Cache buster bech dima y'jib a7deth score
+    # Cache buster bech dima y'jiblek a7deth score
     return pd.read_csv(f"{sheet_url}&t={time.time()}")
 
 # 4. Display Match
 try:
     df = load_data()
     if not df.empty:
-        # N'warriw match we7ed barka mrigel
+        # N'warriw el match el awel (Tarek vs anissa)
         row = df.iloc[0]
+        st.markdown(f"""
+            <div class="match-container">
+                <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
+                <div class="score-text">{row['Score 1']} - {row['Score 2']}</div>
+            </div>
+        """, unsafe_allow_html=True)
+except Exception as e:
+    st.error(f"Erreur: {e}")
+
+# 5. Refresh (Lezem ikoun fi star wa7dou f'ekher el koud)
+time.sleep(3)
+st.rerun()        row = df.iloc[0]
         st.markdown(f"""
             <div class="match-container">
                 <div class="team-text">{row['Team 1']} vs {row['Team 2']}</div>
